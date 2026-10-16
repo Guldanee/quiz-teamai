@@ -16,3 +16,15 @@ export function pointsFor(correct, remainingMs) {
   const remaining = Math.min(Math.max(remainingMs, 0), QUESTION_DURATION_MS);
   return 100 + Math.round((50 * remaining) / QUESTION_DURATION_MS);
 }
+
+// Message de fin selon le nombre de bonnes réponses (textes validés par la PO).
+export function messageFor(correctCount) {
+  if (correctCount <= 2) {
+    return { message: "Pas de panique : même les IA hallucinent parfois ! Revois l'exposé, tu feras mieux la prochaine fois.", extra: null };
+  }
+  if (correctCount <= 5) return { message: "Joli score ! Tu as suivi l'essentiel de l'exposé.", extra: null };
+  return {
+    message: "Impressionnant ! Tu maîtrises l'IA générative et l'agilité.",
+    extra: correctCount === 7 ? "Lève la main quand l'animatrice demande qui a eu 7/7 !" : null,
+  };
+}

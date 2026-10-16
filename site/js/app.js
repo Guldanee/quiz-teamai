@@ -1,6 +1,6 @@
 // Relie la logique du quiz à la page. Tous les textes sont posés avec textContent.
 import { QUESTIONS } from './questions.js';
-import { sanitizePseudo, isValidPseudo } from './logic.js';
+import { sanitizePseudo, isValidPseudo, messageFor } from './logic.js';
 import { newGame, answer, timeout, next, remainingMs, correctCount } from './game.js';
 
 const $ = (id) => document.getElementById(id);
@@ -46,6 +46,10 @@ function renderFinal() {
   $('final-pseudo').textContent = state.pseudo;
   $('final-correct').textContent = `${correctCount(state)}/7`;
   $('final-score').textContent = `${state.score} points`;
+  const { message, extra } = messageFor(correctCount(state));
+  $('final-message').textContent = message;
+  $('final-extra').textContent = extra ?? '';
+  $('final-extra').hidden = extra === null;
 }
 
 function render() {
