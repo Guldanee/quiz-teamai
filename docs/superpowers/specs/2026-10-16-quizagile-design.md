@@ -127,8 +127,8 @@ Outils [choix du concepteur] :
 
 - Chaque story Jira (SCRUM-5 à SCRUM-10) correspond à un lot de travail testé. Les tests reprennent les critères « Étant donné / quand / alors ».
 - La relecture exigée par la Definition of Done est faite par une revue de code IA à la fin de chaque story.
-- Le ticket vide SCRUM-4 « Sous-tâche 2.1 » est supprimé [PO].
-- **Statuts Jira tenus à jour au fil du travail** [PO] : une story passe « en cours » quand son travail commence, puis « terminée » quand elle est en ligne (fusionnée dans `main` et déployée avec succès).
+- Le ticket vide SCRUM-4 « Sous-tâche 2.1 » doit être supprimé [PO]. Le connecteur Jira ne propose pas la suppression, donc la PO le supprime elle-même dans Jira.
+- **Statuts Jira tenus à jour au fil du travail** [PO] : une story passe « en cours » quand son travail commence, puis « terminée » quand elle est en ligne (fusionnée dans `main` et déployée avec succès). Transitions Jira du projet (site teamai-demonstration, cloudId `c813aa3f-0660-47b7-b79e-557ee3d156bd`) : id `31` → « En cours », id `51` → « Terminé(e) ».
 
 ## 12. Ordre de travail (tout doit être en ligne ce soir) [PO]
 
