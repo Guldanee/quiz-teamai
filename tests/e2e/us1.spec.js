@@ -5,6 +5,7 @@ test('US-1 · l’accueil affiche QuizAgile et le bouton Jouer', async ({ page }
   await page.goto('/');
   await expect(page.locator('h1')).toHaveText('QuizAgile');
   await expect(page.locator('#play-button')).toHaveText('Jouer');
+  await expect(page.locator('#privacy-note')).toHaveText("Ton pseudo reste sur ton téléphone, rien n'est envoyé");
 });
 
 test('US-1 · la saisie du pseudo est limitée à 15 caractères', async ({ page }) => {
