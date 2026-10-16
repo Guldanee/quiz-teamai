@@ -1,0 +1,110 @@
+:root {
+  --bg: #f6f5fb;
+  --text: #17162b;
+  --muted: #5b5a73;
+  --panel: #ffffff;
+  --accent: #7c3aed;
+  --good: #15803d;
+  --bad: #be123c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1, h2, p { overflow-wrap: anywhere; }
+
+h1 {
+  font-size: 40px;
+  text-align: center;
+  margin: 48px 0 4px;
+}
+
+.subtitle { text-align: center; color: var(--muted); margin: 0 0 40px; }
+
+form { display: flex; flex-direction: column; gap: 10px; }
+
+label { font-weight: 600; }
+
+input {
+  font: inherit;
+  font-size: 18px;
+  padding: 14px;
+  border: 2px solid var(--muted);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.error { color: var(--bad); font-weight: 600; margin: 0; }
+
+button {
+  font: inherit;
+  font-weight: 700;
+  border: 0;
+  border-radius: 14px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.primary {
+  background: var(--accent);
+  color: #fff;
+  min-height: 56px;
+  width: 100%;
+  font-size: 19px;
+}
+
+.topbar { display: flex; justify-content: space-between; font-weight: 600; color: var(--muted); }
+
+progress { width: 100%; height: 8px; accent-color: var(--accent); }
+
+.timer { font-size: 28px; font-weight: 800; text-align: center; margin: 8px 0; }
+
+h2 { font-size: 21px; margin: 8px 0 16px; }
+
+.answers { display: flex; flex-direction: column; gap: 10px; }
+
+.answer-button {
+  min-height: 56px;
+  padding: 12px 14px;
+  color: #fff;
+  text-align: left;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.answer-button:disabled { cursor: default; }
+
+.answer-0 { background: #be123c; }
+.answer-1 { background: #1d4ed8; }
+.answer-2 { background: #b45309; }
+.answer-3 { background: #15803d; }
+
+#feedback {
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--panel);
+  border-radius: 14px;
+}
+
+#feedback-title { font-size: 22px; font-weight: 800; margin: 0; }
+#feedback-points { font-weight: 700; margin: 4px 0 8px; }
+
+.final-pseudo { text-align: center; font-size: 22px; font-weight: 700; margin-top: 40px; }
+.final-correct { text-align: center; font-size: 72px; font-weight: 900; margin: 0; }
+.final-label { text-align: center; color: var(--muted); margin: 0 0 16px; }
+.final-score { text-align: center; font-size: 26px; font-weight: 800; }
+.footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 40px; }

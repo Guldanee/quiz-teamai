@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>QuizAgile</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <main>
+    <section id="screen-home">
+      <h1>QuizAgile</h1>
+      <p class="subtitle">IA générative et pratiques agiles</p>
+      <form id="home-form" novalidate>
+        <label for="pseudo-input">Ton pseudo</label>
+        <input id="pseudo-input" type="text" maxlength="15" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="15 caractères maximum">
+        <p id="pseudo-error" class="error" hidden>Choisis un pseudo pour jouer.</p>
+        <button id="play-button" type="submit" class="primary">Jouer</button>
+      </form>
+    </section>
+
+    <section id="screen-quiz" hidden>
+      <div class="topbar">
+        <span id="progress-label"></span>
+        <span id="score-label"></span>
+      </div>
+      <progress id="progress-bar" max="7" value="1"></progress>
+      <p id="timer" class="timer"></p>
+      <h2 id="question-text"></h2>
+      <div class="answers">
+        <button class="answer-button answer-0" data-index="0" type="button"><span class="label"></span></button>
+        <button class="answer-button answer-1" data-index="1" type="button"><span class="label"></span></button>
+        <button class="answer-button answer-2" data-index="2" type="button"><span class="label"></span></button>
+        <button class="answer-button answer-3" data-index="3" type="button"><span class="label"></span></button>
+      </div>
+      <div id="feedback" hidden>
+        <p id="feedback-title"></p>
+        <p id="feedback-points"></p>
+        <p id="feedback-explanation"></p>
+        <button id="next-button" type="button" class="primary"></button>
+      </div>
+    </section>
+
+    <section id="screen-final" hidden>
+      <p id="final-pseudo" class="final-pseudo"></p>
+      <p id="final-correct" class="final-correct"></p>
+      <p class="final-label">bonnes réponses</p>
+      <p id="final-score" class="final-score"></p>
+      <p class="footer">Une seule partie par joueur — merci d'avoir joué</p>
+    </section>
+  </main>
+</body>
+</html>
