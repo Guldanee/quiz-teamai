@@ -27,12 +27,16 @@ function renderQuiz() {
   answerButtons.forEach((button, i) => {
     button.querySelector('.label').textContent = q.answers[i];
     button.disabled = asked;
+    button.classList.toggle('is-correct', asked && i === q.correctIndex);
+    button.classList.toggle('is-wrong-choice', asked && i === last.choice && !last.correct);
+    button.classList.toggle('is-dimmed', asked && i !== q.correctIndex && i !== last.choice);
   });
   if (!asked) renderTimer();
   $('feedback').hidden = !asked;
   if (asked) {
     $('feedback-title').textContent = last.correct ? 'Bonne réponse' : 'Mauvaise réponse';
     $('feedback-points').textContent = `+${last.points}`;
+    $('feedback-timeout').hidden = !last.timedOut;
     $('feedback-explanation').textContent = q.explanation;
     $('next-button').textContent = state.index < 6 ? 'Question suivante' : 'Voir mon score';
   }
