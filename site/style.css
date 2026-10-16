@@ -8,6 +8,18 @@
   --bad: #be123c;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121124;
+    --text: #f2f1fa;
+    --muted: #a9a8c2;
+    --panel: #22213d;
+    --accent: #8b5cf6;
+    --good: #4ade80;
+    --bad: #fb7185;
+  }
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -41,6 +53,8 @@ label { font-weight: 600; }
 
 input {
   font: inherit;
+  color: inherit;
+  background: var(--panel);
   font-size: 18px;
   padding: 14px;
   border: 2px solid var(--muted);
@@ -85,6 +99,24 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
   width: 100%;
   overflow-wrap: anywhere;
 }
+
+.answer-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.letter {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  display: grid;
+  place-items: center;
+}
+
+.label { min-width: 0; }
 
 .answer-button:disabled { cursor: default; }
 
