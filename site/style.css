@@ -120,6 +120,9 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
 
 .answer-button:disabled { cursor: default; }
 
+.answer-button.is-dimmed { opacity: 0.35; }
+.answer-button.is-correct { outline: 4px solid var(--text); outline-offset: 2px; }
+
 .answer-0 { background: #be123c; }
 .answer-1 { background: #1d4ed8; }
 .answer-2 { background: #b45309; }
@@ -134,6 +137,7 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
 
 #feedback-title { font-size: 22px; font-weight: 800; margin: 0; }
 #feedback-points { font-weight: 700; margin: 4px 0 8px; }
+#feedback-timeout { font-weight: 700; color: var(--bad); margin: 0 0 8px; }
 
 .final-pseudo { text-align: center; font-size: 22px; font-weight: 700; margin-top: 40px; }
 .final-correct { text-align: center; font-size: 72px; font-weight: 900; margin: 0; }
