@@ -1,11 +1,23 @@
 // Relie la logique du quiz à la page. Tous les textes sont posés avec textContent.
 import { QUESTIONS } from './questions.js';
-import { sanitizePseudo, isValidPseudo, messageFor } from './logic.js';
+import { sanitizePseudo, isValidPseudo, messageFor, quizVersion } from './logic.js';
 import { newGame, answer, timeout, next, remainingMs, correctCount } from './game.js';
+import { loadGame, saveGame } from './store.js';
 
 const $ = (id) => document.getElementById(id);
 const answerButtons = [...document.querySelectorAll('.answer-button')];
 
+const VERSION = quizVersion(QUESTIONS);
+
+function safeStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
+const storage = safeStorage();
 let state = null; // null = accueil
 
 function show(screenId) {
@@ -65,6 +77,7 @@ function render() {
 function setState(newState) {
   if (newState === state) return;
   state = newState;
+  saveGame(storage, state);
   render();
 }
 
@@ -79,7 +92,7 @@ $('home-form').addEventListener('submit', (event) => {
   const pseudo = sanitizePseudo($('pseudo-input').value);
   $('pseudo-error').hidden = isValidPseudo(pseudo);
   if (!isValidPseudo(pseudo)) return;
-  setState(newGame(pseudo, Date.now(), 'v1'));
+  setState(newGame(pseudo, Date.now(), VERSION));
 });
 
 answerButtons.forEach((button) => {
@@ -93,5 +106,12 @@ $('next-button').addEventListener('click', () => {
   window.scrollTo(0, 0);
 });
 
+// Reprise : la partie sauvegardée sur ce téléphone, chronomètre recalculé depuis l'heure de début.
+state = loadGame(storage, VERSION);
+if (state?.phase === 'question' && remainingMs(state, Date.now()) === 0) {
+  state = timeout(state, QUESTIONS);
+  saveGame(storage, state);
+}
+document.addEventListener('visibilitychange', tick);
 setInterval(tick, 250);
 render();
