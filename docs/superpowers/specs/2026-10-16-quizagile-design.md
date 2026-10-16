@@ -127,8 +127,8 @@ Outils [choix du concepteur] :
 
 - Chaque story Jira (SCRUM-5 à SCRUM-10) correspond à un lot de travail testé. Les tests reprennent les critères « Étant donné / quand / alors ».
 - La relecture exigée par la Definition of Done est faite par une revue de code IA à la fin de chaque story.
-- Point signalé à la PO : le ticket SCRUM-4 « Sous-tâche 2.1 » est vide et ressemble à un reste de création de projet. On n'y touche pas sans son accord.
-- Mettre à jour les statuts Jira au fil du travail n'est fait que si la PO le demande.
+- Le ticket vide SCRUM-4 « Sous-tâche 2.1 » est supprimé [PO].
+- **Statuts Jira tenus à jour au fil du travail** [PO] : une story passe « en cours » quand son travail commence, puis « terminée » quand elle est en ligne (fusionnée dans `main` et déployée avec succès).
 
 ## 12. Ordre de travail (tout doit être en ligne ce soir) [PO]
 
