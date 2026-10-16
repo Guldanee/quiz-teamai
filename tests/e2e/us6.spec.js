@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { freezeClock, startGame, answerAll } from './helpers.js';
+import { afterNext, freezeClock, startGame, answerAll } from './helpers.js';
 
 // clientWidth et non innerWidth : sur Android, innerWidth s'élargit avec un contenu trop large.
 const noHorizontalScroll = (page) => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
@@ -14,6 +14,7 @@ test('US-6 · aucun défilement horizontal à 360 px, sur tous les écrans', asy
     await page.locator('.answer-button').first().click();
     expect(await noHorizontalScroll(page)).toBe(true); // avec l'explication affichée
     await page.locator('#next-button').click();
+    await afterNext(page);
   }
   expect(await noHorizontalScroll(page)).toBe(true); // écran final
 });

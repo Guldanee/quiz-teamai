@@ -1,7 +1,7 @@
 // Relie la logique du quiz à la page. Tous les textes sont posés avec textContent.
 import { QUESTIONS } from './questions.js';
-import { sanitizePseudo, isValidPseudo, messageFor, quizVersion } from './logic.js';
-import { newGame, answer, timeout, next, remainingMs, correctCount } from './game.js';
+import { sanitizePseudo, isValidPseudo, messageFor, quizVersion, DOUBLE_TAP_MS } from './logic.js';
+import { newGame, answer, timeout, next, remainingMs, correctCount, progressOf } from './game.js';
 import { loadGame, saveGame } from './store.js';
 
 const $ = (id) => document.getElementById(id);
@@ -74,11 +74,23 @@ function render() {
   show('screen-quiz');
 }
 
+// Un autre onglet (QR code rescanné) a pu avancer la partie : on adopte la sauvegarde la plus avancée.
+function adoptNewerSave() {
+  const saved = loadGame(storage, VERSION);
+  if (progressOf(saved) <= progressOf(state)) return false;
+  state = saved;
+  render();
+  return true;
+}
+
 function setState(newState) {
   if (newState === state) return;
+  if (adoptNewerSave()) return;
+  const answered = state?.phase === 'question' && newState.phase === 'feedback';
   state = newState;
   saveGame(storage, state);
   render();
+  if (answered) requestAnimationFrame(() => $('next-button').scrollIntoView({ block: 'nearest' }));
 }
 
 function tick() {
@@ -102,7 +114,7 @@ answerButtons.forEach((button) => {
 });
 
 $('next-button').addEventListener('click', () => {
-  setState(next(state, Date.now()));
+  setState(next(state, Date.now() + DOUBLE_TAP_MS));
   window.scrollTo(0, 0);
 });
 
@@ -112,6 +124,10 @@ if (state?.phase === 'question' && remainingMs(state, Date.now()) === 0) {
   state = timeout(state, QUESTIONS);
   saveGame(storage, state);
 }
-document.addEventListener('visibilitychange', tick);
+window.addEventListener('storage', adoptNewerSave);
+document.addEventListener('visibilitychange', () => {
+  adoptNewerSave();
+  tick();
+});
 setInterval(tick, 250);
 render();

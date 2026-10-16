@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { QUESTIONS } from '../../site/js/questions.js';
-import { freezeClock, startGame } from './helpers.js';
+import { afterNext, freezeClock, startGame } from './helpers.js';
 
 // Q1 : la bonne réponse est la n° 1 (B).
 test.beforeEach(async ({ page }) => {
@@ -37,6 +37,7 @@ test('US-3 · « Question suivante » puis « Voir mon score » à la 7e', async
     await page.locator('.answer-button').first().click();
     await expect(page.locator('#next-button')).toHaveText(i < 6 ? 'Question suivante' : 'Voir mon score');
     await page.locator('#next-button').click();
+    await afterNext(page);
   }
   await expect(page.locator('#screen-final')).toBeVisible();
 });

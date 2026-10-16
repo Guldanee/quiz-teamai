@@ -1,5 +1,7 @@
 export const QUESTION_DURATION_MS = 20000;
 export const MAX_PSEUDO_LENGTH = 15;
+// La question suivante démarre 400 ms après « Question suivante » : un double toucher tombe dans ce délai.
+export const DOUBLE_TAP_MS = 400;
 
 // Retire les balises, puis tout < ou > restant ; coupe à 15 caractères.
 export function sanitizePseudo(raw) {

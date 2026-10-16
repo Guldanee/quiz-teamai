@@ -5,8 +5,6 @@ on:
   pull_request:
 permissions:
   contents: read
-  pages: write
-  id-token: write
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -22,6 +20,10 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     concurrency: { group: pages, cancel-in-progress: false }
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
