@@ -143,4 +143,11 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
 .final-correct { text-align: center; font-size: 72px; font-weight: 900; margin: 0; }
 .final-label { text-align: center; color: var(--muted); margin: 0 0 16px; }
 .final-score { text-align: center; font-size: 26px; font-weight: 800; }
+.final-message, .final-extra {
+  text-align: center;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--panel);
+}
+.final-extra { font-weight: 700; }
 .footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 40px; }
