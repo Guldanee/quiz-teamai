@@ -1,5 +1,6 @@
 // Relie la logique du quiz à la page. Tous les textes sont posés avec textContent.
 import { QUESTIONS } from './questions.js';
+import { sanitizePseudo, isValidPseudo } from './logic.js';
 import { newGame, answer, timeout, next, remainingMs, correctCount } from './game.js';
 
 const $ = (id) => document.getElementById(id);
@@ -67,9 +68,9 @@ function tick() {
 
 $('home-form').addEventListener('submit', (event) => {
   event.preventDefault();
-  const pseudo = $('pseudo-input').value.trim();
-  $('pseudo-error').hidden = pseudo !== '';
-  if (pseudo === '') return;
+  const pseudo = sanitizePseudo($('pseudo-input').value);
+  $('pseudo-error').hidden = isValidPseudo(pseudo);
+  if (!isValidPseudo(pseudo)) return;
   setState(newGame(pseudo, Date.now(), 'v1'));
 });
 
