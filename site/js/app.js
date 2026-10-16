@@ -90,7 +90,7 @@ function setState(newState) {
   state = newState;
   saveGame(storage, state);
   render();
-  if (answered) $('next-button').scrollIntoView({ block: 'nearest' });
+  if (answered) requestAnimationFrame(() => $('next-button').scrollIntoView({ block: 'nearest' }));
 }
 
 function tick() {

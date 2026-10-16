@@ -136,6 +136,13 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
 }
 
 #feedback-title { font-size: 22px; font-weight: 800; margin: 0; }
+
+/* Toujours visible pendant le retour, même sur un petit écran. */
+#next-button {
+  position: sticky;
+  bottom: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
 #feedback-points { font-weight: 700; margin: 4px 0 8px; }
 #feedback-timeout { font-weight: 700; color: var(--bad); margin: 0 0 8px; }
 
