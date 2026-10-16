@@ -116,7 +116,9 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
   place-items: center;
 }
 
-.label { min-width: 0; }
+.label { min-width: 0; flex: 1; }
+
+.mark { flex: none; font-size: 26px; font-weight: 900; }
 
 .answer-button:disabled { cursor: default; }
 
@@ -157,4 +159,5 @@ h2 { font-size: 21px; margin: 8px 0 16px; }
   background: var(--panel);
 }
 .final-extra { font-weight: 700; }
+.privacy-note { text-align: center; color: var(--muted); font-size: 14px; margin-top: 16px; }
 .footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 40px; }

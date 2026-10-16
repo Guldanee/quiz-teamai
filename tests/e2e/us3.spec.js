@@ -11,9 +11,10 @@ test.beforeEach(async ({ page }) => {
 test('US-3 · bonne réponse : « Bonne réponse » et explication', async ({ page }) => {
   await page.locator('.answer-button').nth(1).click();
   await expect(page.locator('#feedback-title')).toHaveText('Bonne réponse');
-  await expect(page.locator('#feedback-explanation')).toHaveText(QUESTIONS[0].explanation);
+  await expect(page.locator('#feedback-explanation')).toHaveText(`Explication : ${QUESTIONS[0].explanation}`);
   await expect(page.locator('.answer-button').nth(1)).toHaveClass(/is-correct/);
   await expect(page.locator('#feedback-timeout')).toBeHidden();
+  for (const b of await page.locator('.answer-button .mark').all()) await expect(b).toHaveText('');
 });
 
 test('US-3 · mauvaise réponse : bonne réponse mise en évidence', async ({ page }) => {
@@ -22,7 +23,9 @@ test('US-3 · mauvaise réponse : bonne réponse mise en évidence', async ({ pa
   await expect(page.locator('.answer-button').nth(1)).toHaveClass(/is-correct/);
   await expect(page.locator('.answer-button').nth(0)).toHaveClass(/is-wrong-choice/);
   await expect(page.locator('.answer-button').nth(2)).toHaveClass(/is-dimmed/);
-  await expect(page.locator('#feedback-explanation')).toHaveText(QUESTIONS[0].explanation);
+  await expect(page.locator('.answer-button').nth(0).locator('.mark')).toHaveText('✗');
+  await expect(page.locator('.answer-button').nth(1).locator('.mark')).toHaveText('');
+  await expect(page.locator('#feedback-explanation')).toHaveText(`Explication : ${QUESTIONS[0].explanation}`);
 });
 
 test('US-3 · temps écoulé : Mauvaise réponse, Temps écoulé, bonne réponse en évidence', async ({ page }) => {

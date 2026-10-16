@@ -40,7 +40,9 @@ function renderQuiz() {
     button.querySelector('.label').textContent = q.answers[i];
     button.disabled = asked;
     button.classList.toggle('is-correct', asked && i === q.correctIndex);
-    button.classList.toggle('is-wrong-choice', asked && i === last.choice && !last.correct);
+    const wrongChoice = asked && i === last.choice && !last.correct;
+    button.classList.toggle('is-wrong-choice', wrongChoice);
+    button.querySelector('.mark').textContent = wrongChoice ? '✗' : '';
     button.classList.toggle('is-dimmed', asked && i !== q.correctIndex && i !== last.choice);
   });
   if (!asked) renderTimer();
@@ -49,7 +51,7 @@ function renderQuiz() {
     $('feedback-title').textContent = last.correct ? 'Bonne réponse' : 'Mauvaise réponse';
     $('feedback-points').textContent = `+${last.points}`;
     $('feedback-timeout').hidden = !last.timedOut;
-    $('feedback-explanation').textContent = q.explanation;
+    $('feedback-explanation').textContent = `Explication : ${q.explanation}`;
     $('next-button').textContent = state.index < 6 ? 'Question suivante' : 'Voir mon score';
   }
 }
