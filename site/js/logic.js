@@ -28,3 +28,11 @@ export function messageFor(correctCount) {
     extra: correctCount === 7 ? "Lève la main quand l'animatrice demande qui a eu 7/7 !" : null,
   };
 }
+
+// Empreinte du contenu des questions (hachage djb2) : change dès qu'un caractère change.
+export function quizVersion(questions) {
+  const text = JSON.stringify(questions);
+  let hash = 5381;
+  for (let i = 0; i < text.length; i++) hash = ((hash * 33) ^ text.charCodeAt(i)) >>> 0;
+  return hash.toString(36);
+}
