@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { QUESTIONS } from '../../site/js/questions.js';
-import { newGame, answer, timeout, next, remainingMs, correctCount } from '../../site/js/game.js';
+import { DOUBLE_TAP_MS } from '../../site/js/logic.js';
+import { newGame, answer, timeout, next, remainingMs, correctCount, progressOf } from '../../site/js/game.js';
 
 test('Socle · newGame démarre la question 1', () => {
   assert.deepEqual(newGame('Lou', 1000, 'v1'), {
@@ -64,4 +65,25 @@ test('Socle · answer ne modifie pas l’état reçu', () => {
   answer(s, QUESTIONS, 1, 0);
   assert.equal(s.phase, 'question');
   assert.deepEqual(s.answers, []);
+});
+
+test('Relecture · progressOf avance avec la question et la phase', () => {
+  const q1 = newGame('Lou', 0, 'v1');
+  const q1fb = answer(q1, QUESTIONS, 1, 0);
+  const q2 = next(q1fb, 10);
+  assert.ok(progressOf(q1fb) > progressOf(q1));
+  assert.ok(progressOf(q2) > progressOf(q1fb));
+  assert.ok(progressOf({ ...q2, index: 6, phase: 'final' }) > progressOf({ ...q2, index: 6, phase: 'feedback' }));
+  assert.equal(progressOf(null), -1);
+});
+
+test('Relecture · un toucher avant le début de la question (double toucher) est ignoré', () => {
+  const s = newGame('Lou', 1000, 'v1');
+  assert.equal(answer(s, QUESTIONS, 1, 1000 - DOUBLE_TAP_MS), s);
+  assert.equal(answer(s, QUESTIONS, 1, 1000).answers[0].points, 150);
+});
+
+test('Relecture · une heure de début très lointaine (horloge du téléphone reculée) ne bloque pas les réponses', () => {
+  const s = newGame('Lou', 10 * 60 * 1000, 'v1');
+  assert.equal(answer(s, QUESTIONS, 1, 0).phase, 'feedback');
 });
